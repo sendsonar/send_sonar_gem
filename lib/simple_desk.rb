@@ -7,14 +7,14 @@ class Api
 	TOKEN = ENV['SIMPLE_DESK_TOKEN'] || "ucMKQtZ0CQkgfGzTj6lOJe2VRvoRHM8z"
 
 	def add_customer(params)
-		uri = URI.parse(build_url("add_customer", params))
-		response = Net::HTTP.get_response(uri)
+		uri = URI.parse(post_url("add_customer"))
+		response = Net::HTTP.post_form(uri, params)
 	end	
 	alias_method :update_customer, :add_customer
 
 
-	def build_url(type = nil, params=nil)
-		url = post_url(type)
+	def build_url(post_type = nil, params=nil)
+		url = post_url(post_type)
 
 		if params
 			string = ''
@@ -24,14 +24,15 @@ class Api
 			url << string
 			url = url[0...-1] if (url[-1] == '&')
 		end
+		
 		return url
 	end
 
-	def post_url(type)
-		if type == nil
+	def post_url(post_type)
+		if post_type == nil
 			"#{BASE_URL}?token=#{TOKEN}"
 		else
-			case type
+			case post_type
 			when "message_customer"
 				"#{BASE_URL}/api_send_message?token=#{TOKEN}"
 			when "add_customer" || "update_customer"
@@ -41,14 +42,8 @@ class Api
 	end
 
 	def message_customer(message_and_phone_number)
-		url = post_url
-		url << "&" 
-		string = ''
-		message_and_phone_number.each { |k,v| string << "#{k}=#{v}&" }
-		url << string
-		url = post_url[0...-1] if post_url[-1]
-	end
-
-		# https://www.getsimpledesk.com/api_send_message
+		uri = URI.parse(post_url("message_customer"))
+		response = Net::HTTP.post_form(uri, message_and_phone_number)
+	end	
 
 end
