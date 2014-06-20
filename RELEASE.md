@@ -1,3 +1,7 @@
+v 0.3.3
+-------
+Remove item from to do list in readme
+
 v 0.3.2
 -------
 Restructure readme

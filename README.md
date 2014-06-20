@@ -49,7 +49,6 @@ Note: They do not have to be existing in the system to message. You'll automatic
 
 Features that still need to be implemented
 
-		- Make generator to accept your API key
 		- Add ability to pass in properties and convert to base 64
 		- Add auto capitalization for names
 		- Parse formatting for phone number
