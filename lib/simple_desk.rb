@@ -3,10 +3,8 @@ require "net/http"
 require "uri"
 
 module SimpleDesk
-
 	BASE_URL = "https://www.getsimpledesk.com"
-	TOKEN = ENV['SIMPLE_DESK_TOKEN'] || "ucMKQtZ0CQkgfGzTj6lOJe2VRvoRHM8z"
-
+	
 	def self.add_customer(params)
 		uri = URI.parse(post_url("add_customer"))
 		response = Net::HTTP.post_form(uri, params)
@@ -36,13 +34,13 @@ module SimpleDesk
 
 	def self.post_url(post_type)
 		if post_type == nil
-			"#{BASE_URL}?token=#{TOKEN}"
+			"#{BASE_URL}?token=#{ENV['SIMPLE_DESK_TOKEN']}"
 		else
 			case post_type
 			when "message_customer"
-				"#{BASE_URL}/api_send_message?token=#{TOKEN}"
+				"#{BASE_URL}/api_send_message?token=#{ENV['SIMPLE_DESK_TOKEN']}"
 			when "add_customer" || "update_customer"
-				"#{BASE_URL}/api_add_customer?token=#{TOKEN}"
+				"#{BASE_URL}/api_add_customer?token=#{ENV['SIMPLE_DESK_TOKEN']}"
 			end
 		end
 	end

@@ -2,13 +2,6 @@
 
 [Simple Desk](https://www.getsimpledesk.com) is a skin on top of the twillio API which makes it much easier to use. This simple wrapper is a gem to quickly integrate with Simple Desk in seconds.
 
-## To Do List
-
-		- Make generator to accept your API key
-		- Add ability to pass in properties and convert to base 64
-		- Add auto capitalization for names
-		- Parse formatting for phone number
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -24,8 +17,9 @@ Or install it yourself as:
     $ gem install simple_desk
 
 ## Usage
+*As of right now I have my API code hardcoded into the gem, meaning it is useless as of right now for anyone else.*
 
-#Adding Customers
+###**Adding Customers**
 To get started and add a new customer, run:
 		SimpleDesk.add_customer({phone_number: "1231231232"})
 
@@ -41,16 +35,21 @@ Like this:
 		SimpleDesk.add_customer(params)
 
 
-#Messaging
+###**Messaging**
 To message a user the format is similar
 Note: They do not have to be existing in the system to message. You'll automatically create a new user if you message a new phone number
 
 		message_and_phone_number = {to: 5551231234, text: "Howdy partner!"}
 		SimpleDesk.message_customer(message_and_phone_number)
 		
+## To Do List
 
+Features that still need to be implemented
 
-or you if you want to pass in other details, you can 
+		- Make generator to accept your API key
+		- Add ability to pass in properties and convert to base 64
+		- Add auto capitalization for names
+		- Parse formatting for phone number
 
 ## Contributing
 

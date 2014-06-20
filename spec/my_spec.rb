@@ -5,6 +5,7 @@ describe SimpleDesk do
 	before :each do
     @phone = {phone_number: "555#{Random.rand(10_000_000 - 1_000_000)}"}
     @user = {first_name: "Elijah", last_name: "Murray"}.merge!(@phone)
+		ENV['SIMPLE_DESK_TOKEN'] = 'ucMKQtZ0CQkgfGzTj6lOJe2VRvoRHM8z'
 	end
 
 	describe "#build_url" do
@@ -24,7 +25,7 @@ describe SimpleDesk do
 	describe "#message_customer" do
 		it "message customer successfully" do
 			# skip("disabled to not call API")
-			message = "Hi customer!"
+			message = "Wooot"
 			to = {to: @phone[:phone_number]}
 			params = {text: message}.merge!(to)
 			request = SimpleDesk.message_customer(params)
