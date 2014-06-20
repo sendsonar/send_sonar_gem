@@ -6,6 +6,8 @@
 
 		- Make generator to accept your API key
 		- Add ability to pass in properties and convert to base 64
+		- Add auto capitalization for names
+		- Parse formatting for phone number
 
 ## Installation
 
@@ -23,8 +25,32 @@ Or install it yourself as:
 
 ## Usage
 
-		a = Api.new
-		a.add_customer({phone_number: "1231231234"})
+#Adding Customers
+To get started and add a new customer, run:
+		SimpleDesk.add_customer({phone_number: "1231231232"})
+
+While `phone_number` is required, you can pass additional properties in:
+		- phone_number (required)
+		- email (optional)
+		- first_name (optional)
+		- last_name (optional)
+
+Like this:
+		
+		params = {phone_number: "1231231232", email: "elijah@example.com", first_name: "Elijah", last_name: "Murray"}
+		SimpleDesk.add_customer(params)
+
+
+#Messaging
+To message a user the format is similar
+Note: They do not have to be existing in the system to message. You'll automatically create a new user if you message a new phone number
+
+		message_and_phone_number = {to: 5551231234, text: "Howdy partner!"}
+		SimpleDesk.message_customer(message_and_phone_number)
+		
+
+
+or you if you want to pass in other details, you can 
 
 ## Contributing
 

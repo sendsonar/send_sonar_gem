@@ -13,7 +13,12 @@ module SimpleDesk
 	end	
 	# alias_method :update_customer, :add_customer
 
+	def self.message_customer(message_and_phone_number)
+		uri = URI.parse(post_url("message_customer"))
+		response = Net::HTTP.post_form(uri, message_and_phone_number)
+	end	
 
+	private
 	def self.build_url(post_type = nil, params=nil)
 		url = post_url(post_type)
 
@@ -41,10 +46,5 @@ module SimpleDesk
 			end
 		end
 	end
-
-	def self.message_customer(message_and_phone_number)
-		uri = URI.parse(post_url("message_customer"))
-		response = Net::HTTP.post_form(uri, message_and_phone_number)
-	end	
 
 end
