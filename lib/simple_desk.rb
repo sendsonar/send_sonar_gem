@@ -2,18 +2,19 @@ require "simple_desk/version"
 require "net/http"
 require "uri"
 
-class Api
+module SimpleDesk
+
 	BASE_URL = "https://www.getsimpledesk.com"
 	TOKEN = ENV['SIMPLE_DESK_TOKEN'] || "ucMKQtZ0CQkgfGzTj6lOJe2VRvoRHM8z"
 
-	def add_customer(params)
+	def self.add_customer(params)
 		uri = URI.parse(post_url("add_customer"))
 		response = Net::HTTP.post_form(uri, params)
 	end	
-	alias_method :update_customer, :add_customer
+	# alias_method :update_customer, :add_customer
 
 
-	def build_url(post_type = nil, params=nil)
+	def self.build_url(post_type = nil, params=nil)
 		url = post_url(post_type)
 
 		if params
@@ -28,7 +29,7 @@ class Api
 		return url
 	end
 
-	def post_url(post_type)
+	def self.post_url(post_type)
 		if post_type == nil
 			"#{BASE_URL}?token=#{TOKEN}"
 		else
@@ -41,7 +42,7 @@ class Api
 		end
 	end
 
-	def message_customer(message_and_phone_number)
+	def self.message_customer(message_and_phone_number)
 		uri = URI.parse(post_url("message_customer"))
 		response = Net::HTTP.post_form(uri, message_and_phone_number)
 	end	

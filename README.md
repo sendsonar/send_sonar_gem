@@ -1,6 +1,11 @@
 # SimpleDesk
 
-TODO: Write a gem description
+[Simple Desk](https://www.getsimpledesk.com) is a skin on top of the twillio API which makes it much easier to use. This simple wrapper is a gem to quickly integrate with Simple Desk in seconds.
+
+## To Do List
+
+		- Make generator to accept your API key
+		- Add ability to pass in properties and convert to base 64
 
 ## Installation
 
@@ -18,7 +23,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+		a = Api.new
+		a.add_customer({phone_number: "1231231234"})
 
 ## Contributing
 
