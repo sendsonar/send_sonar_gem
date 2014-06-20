@@ -1,3 +1,7 @@
+v 0.3.1
+-------
+Update the readme to note the dynamic token assignment
+
 v 0.3.0
 -------
 Make dynamic for API token
