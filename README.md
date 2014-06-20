@@ -16,9 +16,11 @@ Or install it yourself as:
 
     $ gem install simple_desk
 
+Then add your API token to your `application_root/.env` file, or create one if you don't have it.
+
+		SIMPLE_DESK_TOKEN=MY_TOKEN
+
 ## Usage
-Add your API token to your `application_root/.env` file, or create one if you don't have it.
-    SIMPLE_DESK_TOKEN=MY_TOKEN
 
 ###**Adding Customers**
 To get started and add a new customer, run:
