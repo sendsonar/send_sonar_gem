@@ -1,6 +1,6 @@
 # SimpleDesk
 
-[Simple Desk](https://www.getsimpledesk.com) is an SMS customer engagement platform that allows companies to have 2-way conversationss with their customers over SMS - whether it's for sales, customer service, funnel abandonment, or transactional messages.
+[Simple Desk](https://www.getsimpledesk.com) is an SMS customer engagement platform that allows companies to have 2-way conversations with their customers over SMS - whether it's for sales, customer service, funnel abandonment, or transactional messages.
 
 ## Installation
 
