@@ -38,9 +38,9 @@ module SimpleDesk
 		else
 			case post_type
 			when "message_customer"
-				"#{BASE_URL}/api_send_message?token=#{ENV['SIMPLE_DESK_TOKEN'] || CONFIG['SIMPLE_DESK_TOKEN']}"
+				"#{BASE_URL}/api_send_message?token=#{ENV['SIMPLE_DESK_TOKEN'] || CONFIG['simple_desk_token']}"
 			when "add_customer" || "update_customer"
-				"#{BASE_URL}/api_add_customer?token=#{ENV['SIMPLE_DESK_TOKEN'] || CONFIG['SIMPLE_DESK_TOKEN']}"
+				"#{BASE_URL}/api_add_customer?token=#{ENV['SIMPLE_DESK_TOKEN'] || CONFIG['simple_desk_token']}"
 			end
 		end
 	end
