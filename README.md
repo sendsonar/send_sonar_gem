@@ -52,6 +52,7 @@ Features that still need to be implemented
 		- Add ability to pass in properties and convert to base 64
 		- Add auto capitalization for names
 		- Parse formatting for phone number
+    - Update readme to explain setting up [IFTTT](https://ifttt.com/recipes/1110-send-an-sms-when-a-new-gmail-is-from-a-specific-email-address)
 
 ## Contributing
 
