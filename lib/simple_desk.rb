@@ -34,7 +34,7 @@ module SimpleDesk
 
 	def self.post_url(post_type)
 		if post_type == nil
-			"#{BASE_URL}?token=#{ENV['SIMPLE_DESK_TOKEN']}"
+			"#{BASE_URL}?token=#{ENV['SIMPLE_DESK_TOKEN'] || CONFIG['simple_desk_token']}"
 		else
 			case post_type
 			when "message_customer"
