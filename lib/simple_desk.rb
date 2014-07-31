@@ -6,14 +6,22 @@ module SimpleDesk
 	BASE_URL = "https://www.getsimpledesk.com"
 	
 	def self.add_customer(params)
-		uri = URI.parse(post_url("add_customer"))
-		response = Net::HTTP.post_form(uri, params)
+        	url = URI.parse(post_url("add_customer"))
+        	req = Net::HTTP::Post.new(url.request_uri)
+        	req.set_form_data(params)
+        	http = Net::HTTP.new(url.host, url.port)
+        	http.use_ssl = true
+        	response = http.request(req)
 	end	
 	# alias_method :update_customer, :add_customer
 
 	def self.message_customer(message_and_phone_number)
-		uri = URI.parse(post_url("message_customer"))
-		response = Net::HTTP.post_form(uri, message_and_phone_number)
+        	url = URI.parse(post_url("message_customer"))
+        	req = Net::HTTP::Post.new(url.request_uri)
+        	req.set_form_data(message_and_phone_number)
+        	http = Net::HTTP.new(url.host, url.port)
+        	http.use_ssl = true
+        	response = http.request(req)
 	end	
 
 	private
