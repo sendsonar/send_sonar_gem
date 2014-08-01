@@ -5,9 +5,9 @@ require "uri"
 module SimpleDesk
 	BASE_URL = "https://www.getsimpledesk.com"
 
-	def self.add_customer(params, properties)
-    properties = Base64.urlsafe_encode64(properties.to_json) unless properties.blank?
-    params.merge(properties)
+	def self.add_customer(params, customer_properties)
+    props = Base64.urlsafe_encode64(customer_properties.to_json) unless customer_properties.blank?
+    params.merge(properties: props)
   	url = URI.parse(post_url("add_customer"))
   	req = Net::HTTP::Post.new(url.request_uri)
   	req.set_form_data(params)
