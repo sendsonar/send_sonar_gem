@@ -4,25 +4,27 @@ require "uri"
 
 module SimpleDesk
 	BASE_URL = "https://www.getsimpledesk.com"
-	
-	def self.add_customer(params)
-        	url = URI.parse(post_url("add_customer"))
-        	req = Net::HTTP::Post.new(url.request_uri)
-        	req.set_form_data(params)
-        	http = Net::HTTP.new(url.host, url.port)
-        	http.use_ssl = true
-        	response = http.request(req)
-	end	
+
+	def self.add_customer(params, properties)
+    properties = Base64.urlsafe_encode64(properties.to_json) unless properties.blank?
+    params.merge(properties)
+  	url = URI.parse(post_url("add_customer"))
+  	req = Net::HTTP::Post.new(url.request_uri)
+  	req.set_form_data(params)
+  	http = Net::HTTP.new(url.host, url.port)
+  	http.use_ssl = true
+  	response = http.request(req)
+	end
 	# alias_method :update_customer, :add_customer
 
 	def self.message_customer(message_and_phone_number)
-        	url = URI.parse(post_url("message_customer"))
-        	req = Net::HTTP::Post.new(url.request_uri)
-        	req.set_form_data(message_and_phone_number)
-        	http = Net::HTTP.new(url.host, url.port)
-        	http.use_ssl = true
-        	response = http.request(req)
-	end	
+  	url = URI.parse(post_url("message_customer"))
+  	req = Net::HTTP::Post.new(url.request_uri)
+  	req.set_form_data(message_and_phone_number)
+  	http = Net::HTTP.new(url.host, url.port)
+  	http.use_ssl = true
+  	response = http.request(req)
+	end
 
 	private
 	def self.build_url(post_type = nil, params=nil)
@@ -36,7 +38,7 @@ module SimpleDesk
 			url << string
 			url = url[0...-1] if (url[-1] == '&')
 		end
-		
+
 		return url
 	end
 
