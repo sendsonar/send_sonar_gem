@@ -1,3 +1,7 @@
+v 0.3.4
+-------
+Added ability to send properties
+
 v 0.3.3
 -------
 Remove item from to do list in readme
