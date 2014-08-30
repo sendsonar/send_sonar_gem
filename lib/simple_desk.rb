@@ -8,7 +8,7 @@ module SimpleDesk
   def self.add_customer(params, customer_properties = nil)
     unless customer_properties.blank?
       props = Base64.urlsafe_encode64(customer_properties.to_json)
-      params = params.merge(properties: props)
+      params = params.merge(:properties => props)
     end
     url = URI.parse(post_url("add_customer"))
     req = Net::HTTP::Post.new(url.request_uri)
