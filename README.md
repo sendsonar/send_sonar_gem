@@ -36,7 +36,15 @@ Like this:
 		
 		params = {phone_number: "1231231232", email: "elijah@example.com", first_name: "Elijah", last_name: "Murray"}
 		SimpleDesk.add_customer(params)
-
+		
+You can also add any amount of additional properties like so (using phone_number as the identifier):
+		
+		properties = {revenue_amount: "$100", location: "San Francisco"}
+		SimpleDesk.add_customer({phone_number: "1231231232"}, properties)
+		
+The gem will turn the properties into a Base64 encoded json object automatically.
+		
+You can use params and properties in the same add_customer call too!
 
 ###**Messaging**
 To message a user the format is similar
