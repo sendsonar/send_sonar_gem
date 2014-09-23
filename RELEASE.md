@@ -1,3 +1,9 @@
+v 1.0.0
+-------
+Configuration is now done through an initializer
+Support for sandbox server
+When creating a customer, properties is no longer a separate param (see readme)
+
 v 0.3.4
 -------
 Added ability to send properties

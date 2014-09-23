@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3000/api/v1/customers
+    body:
+      encoding: US-ASCII
+      string: phone_numbah=5555555558
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 3Z9L8xFjeNmXL7Yn-pFJUBoxkVWBbl5o
+      Client:
+      - rubygem 0.0.1
+      Content-Length:
+      - '23'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: 'Bad Request '
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '35'
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - c8c9a1f9-4caa-419c-92f8-7a9d4a2729d6
+      X-Runtime:
+      - '0.017334'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Fri, 19 Sep 2014 20:22:08 GMT
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"error":"phone_number is missing"}'
+    http_version: 
+  recorded_at: Fri, 19 Sep 2014 20:22:08 GMT
+recorded_with: VCR 2.9.2

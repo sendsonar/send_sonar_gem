@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/getsimpledesk/simple_desk_gem.svg)](https://travis-ci.org/getsimpledesk/simple_desk_gem)
+
 # SimpleDesk
 
 [Simple Desk](https://www.getsimpledesk.com) is an SMS customer engagement platform that allows companies to have 2-way conversations with their customers over SMS - whether it's for sales, customer service, funnel abandonment, or transactional messages.
@@ -6,63 +8,101 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'simple_desk'
+```ruby
+gem 'simple_desk'
+```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+## Compatibility
+Works with Ruby 1.9.1 or greater
 
-    $ gem install simple_desk
+## Changes
+See RELEASE.md
 
-Then add your API token to your `application_root/.env` file, or create one if you don't have it.
+* Configuration is now done through an initializer
+* Support for sandbox server
+* When creating a customer, properties is no longer a separate param (see readme)
 
-		SIMPLE_DESK_TOKEN=MY_TOKEN
+
+## Setup
+Initialize the gem by creating an initializer.
+
+* Your production token can be found at https://www.getsimpledesk.com/api_info.
+* Your sandbox token can be found at https://sandbox.getsimpledesk.com/api_info
+
+```ruby
+# config/initializers/simple_desk.rb
+
+SimpleDesk.configure do |config|
+  if Rails.env.production?
+    config.env = :live
+    config.token = ENV['SIMPLEDESK_PRODUCTION_TOKEN'] || 'YOUR_PRODUCTION_TOKEN'
+
+  elsif Rails.env.staging?
+    config.env = :sandbox
+    config.token = ENV['SIMPLEDESK_SANDBOX_TOKEN'] || 'YOUR_PRODUCTION_TOKEN'
+  end
+end
+```
+
+
 
 ## Usage
 
-###**Adding Customers**
-To get started and add a new customer, run:
-		SimpleDesk.add_customer({phone_number: "1231231232"})
+The API currently allows sending messages and adding customers.
 
-While `phone_number` is required, you can pass additional properties in:
-		- phone_number (required)
-		- email (optional)
-		- first_name (optional)
-		- last_name (optional)
+**Sending Messages**
 
-Like this:
-		
-		params = {phone_number: "1231231232", email: "elijah@example.com", first_name: "Elijah", last_name: "Murray"}
-		SimpleDesk.add_customer(params)
-		
-You can also add any amount of additional properties like so (using phone_number as the identifier):
-		
-		properties = {revenue_amount: "$100", location: "San Francisco"}
-		SimpleDesk.add_customer({phone_number: "1231231232"}, properties)
-		
-The gem will turn the properties into a Base64 encoded json object automatically.
-		
-You can use params and properties in the same add_customer call too!
+```ruby
+SimpleDesk.message_customer(text: 'message text', to: '1234567890')
+```
+The response is a `SimpleDesk::Message` object with the following accessors:
 
-###**Messaging**
-To message a user the format is similar
-Note: They do not have to be existing in the system to message. You'll automatically create a new user if you message a new phone number
+  * to (phone number as string)
+  * text
+  * status
 
-		message_and_phone_number = {to: 5551231234, text: "Howdy partner!"}
-		SimpleDesk.message_customer(message_and_phone_number)
-		
-## To Do List
+Status is one of "queued" or "unsubscribed". Messages with "queued" status are usually sent within seconds. Messages with "unsubscribed" status will not be sent, as customer has previously unsubscribed from API messages.
 
-Features that still need to be implemented
+If you send a message to a new phone number the API will automatically create a new user.
 
-		- Add ability to pass in properties and convert to base 64
-		- Add auto capitalization for names
-		- Parse formatting for phone number
-    - Update readme to explain setting up [IFTTT](https://ifttt.com/recipes/1110-send-an-sms-when-a-new-gmail-is-from-a-specific-email-address)
+#<SimpleDesk::Message to="1234567890", text="content!", status="queued">
+
+**Adding Customers**
+
+If a customer already exists with the given phone number, that customer will be updated.
+
+```ruby
+SimpleDesk.add_customer(
+  phone_number: "5555555555",
+  email: "user@example.com",
+  first_name: "john",
+  last_name: "doe",
+  properties: { great_customer: "true" }
+)
+```
+You can send an unlimited number of properties with arbitrary keys and values.
+
+The response is a `SimpleDesk::Customer` object with the following accessors:
+
+  * id
+  * phone_number (string)
+  * email
+  * first_name
+  * last_name
+  * subscribed (boolean)
+  * properties (hash)
+
+
+## Support
+Email api-help@getsimpledesk.com if you are having issues with the gem or service.
 
 ## Contributing
+
+Please file an issue on Github and have a conversation with us before creating a pull request
 
 1. Fork it ( https://github.com/[my-github-username]/simple_desk/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)

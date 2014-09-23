@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3000/api/v1/customers
+    body:
+      encoding: US-ASCII
+      string: phone_number=5555555557&email=user%40example.com&first_name=john&last_name=doe&properties[great_customer]=true
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - ts9mOO_O5Dc7TOBaEAQym-00RGEl3Uel
+      Client:
+      - rubygem 0.0.1
+      Content-Length:
+      - '110'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 403
+      message: 'Forbidden '
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '36'
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 96abc3ba-c542-4609-b133-be2f649e8770
+      X-Runtime:
+      - '0.016683'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Fri, 19 Sep 2014 20:22:08 GMT
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"error":"Api Disabled For Company"}'
+    http_version: 
+  recorded_at: Fri, 19 Sep 2014 20:22:08 GMT
+recorded_with: VCR 2.9.2

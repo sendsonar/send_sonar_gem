@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3000/api/v1/customers
+    body:
+      encoding: US-ASCII
+      string: phone_number=5555555557&email=user%40example.com&first_name=john&last_name=doe&properties[great_customer]=true
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 3Z9L8xFjeNmXL7Yn-pFJUBoxkVWBbl5o
+      Client:
+      - rubygem 0.0.1
+      Content-Length:
+      - '110'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: 'Created '
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '158'
+      Etag:
+      - '"f9adcdb012185fe56fe84ad04e1a2824"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 68168308-eff1-41f8-98e0-12c2a4694f0f
+      X-Runtime:
+      - '0.490912'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Fri, 19 Sep 2014 20:22:08 GMT
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"id":5,"phone_number":"5555555557","email":"user@example.com","first_name":"john","last_name":"doe","subscribed":true,"properties":{"great_customer":"true"}}'
+    http_version: 
+  recorded_at: Fri, 19 Sep 2014 20:22:08 GMT
+recorded_with: VCR 2.9.2

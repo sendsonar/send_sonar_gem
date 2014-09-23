@@ -1,4 +1,4 @@
-Copyright (c) 2014 Elijah Murray
+Copyright (c) 2014 John Gesimondo and Elijah Murray
 
 MIT License
 
