@@ -17,7 +17,7 @@ And then execute:
     $ bundle
 
 ## Compatibility
-Works with Ruby 1.9.1 or greater
+Works with Ruby 1.8.7 or greater
 
 ## Changes
 See RELEASE.md
