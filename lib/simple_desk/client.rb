@@ -1,8 +1,8 @@
 module SimpleDesk
   module Client
     def self.post(url, payload, headers={}, &block)
-      RestClient::Request.execute(method: :post, url: url, payload: payload, headers: headers,
-        open_timeout: 2, timeout: 4, &block)
+      RestClient::Request.execute(:method => :post, :url => url, :payload => payload, :headers => headers,
+        :open_timeout => 2, :timeout => 4, &block)
 
     rescue Errno::ECONNREFUSED => e
       raise ConnectionRefused.new(e)

@@ -28,7 +28,7 @@ module SimpleDesk
   attr_reader :config
 
   def headers
-    { token: config.token, client: "rubygem #{SimpleDesk::VERSION}" }
+    { :token => config.token, :client => "rubygem #{SimpleDesk::VERSION}" }
   end
 
   def url_for(key)

@@ -75,18 +75,18 @@ describe 'SimpleDesk' do
     let(:response) { SimpleDesk.add_customer(params) }
     let(:token) { '3Z9L8xFjeNmXL7Yn-pFJUBoxkVWBbl5o' }
     let(:params) do
-      { phone_number: "5555555557",
-        email: "user@example.com",
-        first_name: "john",
-        last_name: "doe",
-        properties: { great_customer: "true" } }
+      { :phone_number => "5555555557",
+        :email => "user@example.com",
+        :first_name => "john",
+        :last_name => "doe",
+        :properties => { :great_customer => "true" } }
     end
 
     it_behaves_like "a mature, error handling gem"
 
     context 'with invalid params' do
       let(:params) do
-        { phone_numbah: "5555555558" }
+        { :phone_numbah => "5555555558" }
       end
 
       it 'raises a BadRequest error with hint' do
@@ -129,14 +129,14 @@ describe 'SimpleDesk' do
     let(:response) { SimpleDesk.message_customer(params) }
     let(:token) { '3Z9L8xFjeNmXL7Yn-pFJUBoxkVWBbl5o' }
     let(:params) do
-      { to: "5555555557", text: "this is the message text" }
+      { :to => "5555555557", :text => "this is the message text" }
     end
 
     it_behaves_like "a mature, error handling gem"
 
     context 'with invalid params' do
       let(:params) do
-        { toz: "5555555558" }
+        { :toz => "5555555558" }
       end
 
       it 'raises a BadRequest error with hint' do
