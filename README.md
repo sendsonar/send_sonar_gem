@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/getsimpledesk/simple_desk_gem.svg)](https://travis-ci.org/getsimpledesk/simple_desk_gem)
 
+# OLD NAME
+Moved to [Send Sonar](https://github.com/sendsonar/send_sonar_gem).
+
 # SimpleDesk
 
 [Simple Desk](https://www.getsimpledesk.com) is an SMS customer engagement platform that allows companies to have 2-way conversations with their customers over SMS - whether it's for sales, customer service, funnel abandonment, or transactional messages.
