@@ -1,12 +1,12 @@
-require "simple_desk/version"
-require "simple_desk/configuration"
-require "simple_desk/exceptions"
-require "simple_desk/client"
+require "send_sonar/version"
+require "send_sonar/configuration"
+require "send_sonar/exceptions"
+require "send_sonar/client"
 require "rest_client"
 require "ostruct"
 require "json"
 
-module SimpleDesk
+module SendSonar
   extend self
 
   def configure
@@ -28,7 +28,7 @@ module SimpleDesk
   attr_reader :config
 
   def headers
-    { :token => config.token, :client => "rubygem #{SimpleDesk::VERSION}" }
+    { :token => config.token, :client => "rubygem #{SendSonar::VERSION}" }
   end
 
   def url_for(key)

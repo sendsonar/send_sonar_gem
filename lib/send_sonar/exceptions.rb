@@ -1,6 +1,6 @@
 require 'ostruct'
 
-module SimpleDesk
+module SendSonar
   class Exception < RuntimeError;end
   class ConfigurationError < Exception; end
 

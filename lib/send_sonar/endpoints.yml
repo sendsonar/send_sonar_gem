@@ -1,0 +1,11 @@
+local:
+  messages: http://localhost:3000/api/v1/messages
+  customers: http://localhost:3000/api/v1/customers
+
+sandbox:
+  messages: https://sandbox.sendsonar.com/api/v1/messages
+  customers: https://sandbox.sendsonar.com/api/v1/customers
+
+live:
+  messages: https://www.sendsonar.com/api/v1/messages
+  customers: https://www.sendsonar.com/api/v1/customers

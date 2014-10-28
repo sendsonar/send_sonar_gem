@@ -1,4 +1,4 @@
-require 'simple_desk'
+require 'send_sonar'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

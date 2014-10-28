@@ -1,4 +1,4 @@
-module SimpleDesk
+module SendSonar
   module Client
     def self.post(url, payload, headers={}, &block)
       RestClient::Request.execute(:method => :post, :url => url, :payload => payload, :headers => headers,

@@ -1,18 +1,18 @@
-[![Build Status](https://travis-ci.org/getsimpledesk/simple_desk_gem.svg)](https://travis-ci.org/getsimpledesk/simple_desk_gem)
+[![Build Status](https://travis-ci.org/sendsonar/send_sonar_gem.svg)](https://travis-ci.org/sendsonar/send_sonar_gem)
 
-# OLD NAME
-Moved to [Send Sonar](https://github.com/sendsonar/send_sonar_gem).
+# Upgrading from SimpleDesk Gem
+Be sure to change your initializer and API calls from `SimpleDesk` to `SendSonar`.
 
-# SimpleDesk
+# SendSonar
 
-[Simple Desk](https://www.getsimpledesk.com) is an SMS customer engagement platform that allows companies to have 2-way conversations with their customers over SMS - whether it's for sales, customer service, funnel abandonment, or transactional messages.
+[Sonar](https://www.sendsonar.com) is an SMS customer engagement platform that allows companies to have 2-way conversations with their customers over SMS - whether it's for sales, customer service, funnel abandonment, or transactional messages.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simple_desk'
+gem 'send_sonar'
 ```
 
 And then execute:
@@ -33,20 +33,20 @@ See RELEASE.md
 ## Setup
 Initialize the gem by creating an initializer.
 
-* Your production token can be found at https://www.getsimpledesk.com/api_info.
-* Your sandbox token can be found at https://sandbox.getsimpledesk.com/api_info
+* Your production token can be found at https://www.sendsonar.com/api_info.
+* Your sandbox token can be found at https://sandbox.sendsonar.com/api_info
 
 ```ruby
-# config/initializers/simple_desk.rb
+# config/initializers/send_sonar.rb
 
-SimpleDesk.configure do |config|
+SendSonar.configure do |config|
   if Rails.env.production?
     config.env = :live
-    config.token = ENV['SIMPLEDESK_PRODUCTION_TOKEN'] || 'YOUR_PRODUCTION_TOKEN'
+    config.token = ENV['SONAR_PRODUCTION_TOKEN'] || 'YOUR_PRODUCTION_TOKEN'
 
   elsif Rails.env.staging?
     config.env = :sandbox
-    config.token = ENV['SIMPLEDESK_SANDBOX_TOKEN'] || 'YOUR_PRODUCTION_TOKEN'
+    config.token = ENV['SONAR_SANDBOX_TOKEN'] || 'YOUR_PRODUCTION_TOKEN'
   end
 end
 ```
@@ -60,9 +60,9 @@ The API currently allows sending messages and adding customers.
 **Sending Messages**
 
 ```ruby
-SimpleDesk.message_customer(text: 'message text', to: '1234567890')
+SendSonar.message_customer(text: 'message text', to: '1234567890')
 ```
-The response is a `SimpleDesk::Message` object with the following accessors:
+The response is a `SendSonar::Message` object with the following accessors:
 
   * to (phone number as string)
   * text
@@ -72,14 +72,14 @@ Status is one of "queued" or "unsubscribed". Messages with "queued" status are u
 
 If you send a message to a new phone number the API will automatically create a new user.
 
-#<SimpleDesk::Message to="1234567890", text="content!", status="queued">
+#<Sonar::Message to="1234567890", text="content!", status="queued">
 
 **Adding Customers**
 
 If a customer already exists with the given phone number, that customer will be updated.
 
 ```ruby
-SimpleDesk.add_customer(
+SendSonar.add_customer(
   phone_number: "5555555555",
   email: "user@example.com",
   first_name: "john",
@@ -89,7 +89,7 @@ SimpleDesk.add_customer(
 ```
 You can send an unlimited number of properties with arbitrary keys and values.
 
-The response is a `SimpleDesk::Customer` object with the following accessors:
+The response is a `SendSonar::Customer` object with the following accessors:
 
   * id
   * phone_number (string)
@@ -101,13 +101,13 @@ The response is a `SimpleDesk::Customer` object with the following accessors:
 
 
 ## Support
-Email api-help@getsimpledesk.com if you are having issues with the gem or service.
+Email api-help@sendsonar.com if you are having issues with the gem or service.
 
 ## Contributing
 
 Please file an issue on Github and have a conversation with us before creating a pull request
 
-1. Fork it ( https://github.com/[my-github-username]/simple_desk/fork )
+1. Fork it ( https://github.com/[my-github-username]/send_sonar/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

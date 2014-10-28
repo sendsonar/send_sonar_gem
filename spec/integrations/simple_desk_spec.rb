@@ -6,11 +6,11 @@ VCR.configure do |c|
   c.hook_into :webmock # or :fakeweb
 end
 
-describe 'SimpleDesk' do
+describe 'SendSonar' do
   describe '.configure' do
     context 'token' do
       it 'has a setter' do
-        SimpleDesk.configure do |config|
+        SendSonar.configure do |config|
           config.token = 'YOUR_PRODUCTION_TOKEN'
         end
       end
@@ -18,15 +18,15 @@ describe 'SimpleDesk' do
 
     context 'env' do
       it 'has a setter' do
-        SimpleDesk.configure do |config|
+        SendSonar.configure do |config|
           config.env = :live
         end
       end
 
       it 'raises an error if not an allowed option' do
-        expect { SimpleDesk.configure do |config|
+        expect { SendSonar.configure do |config|
           config.env = :bogus_env
-        end }.to raise_error(SimpleDesk::ConfigurationError)
+        end }.to raise_error(SendSonar::ConfigurationError)
       end
     end
   end
@@ -37,7 +37,7 @@ describe 'SimpleDesk' do
 
       it 'raises a BadToken error' do
         VCR.use_cassette("#{cassette_group}_bad_token") do
-          expect { response }.to raise_error(SimpleDesk::BadToken, 'SimpleDesk::BadToken')
+          expect { response }.to raise_error(SendSonar::BadToken, 'SendSonar::BadToken')
         end
       end
     end
@@ -47,7 +47,7 @@ describe 'SimpleDesk' do
 
       it 'raises a BadToken error' do
         VCR.use_cassette("#{cassette_group}_no_subscription") do
-          expect { response }.to raise_error(SimpleDesk::NoActiveSubscription, 'SimpleDesk::NoActiveSubscription')
+          expect { response }.to raise_error(SendSonar::NoActiveSubscription, 'SendSonar::NoActiveSubscription')
         end
       end
     end
@@ -57,7 +57,7 @@ describe 'SimpleDesk' do
 
       it 'raises a BadToken error' do
         VCR.use_cassette("#{cassette_group}_api_disabled") do
-          expect { response }.to raise_error(SimpleDesk::ApiDisabledForCompany, 'SimpleDesk::ApiDisabledForCompany')
+          expect { response }.to raise_error(SendSonar::ApiDisabledForCompany, 'SendSonar::ApiDisabledForCompany')
         end
       end
     end
@@ -65,14 +65,14 @@ describe 'SimpleDesk' do
 
   describe '.add_customer' do
     before do
-      SimpleDesk.configure do |config|
+      SendSonar.configure do |config|
         config.token = token
         config.env = :local
       end
     end
 
     let(:cassette_group) { "add_customer" }
-    let(:response) { SimpleDesk.add_customer(params) }
+    let(:response) { SendSonar.add_customer(params) }
     let(:token) { '3Z9L8xFjeNmXL7Yn-pFJUBoxkVWBbl5o' }
     let(:params) do
       { :phone_number => "5555555557",
@@ -91,7 +91,7 @@ describe 'SimpleDesk' do
 
       it 'raises a BadRequest error with hint' do
         VCR.use_cassette("add_customer_bad_params") do
-          expect { response }.to raise_error(SimpleDesk::BadRequest,
+          expect { response }.to raise_error(SendSonar::BadRequest,
             '400 Bad Request: {"error":"phone_number is missing"}')
         end
       end
@@ -100,7 +100,7 @@ describe 'SimpleDesk' do
     context 'with proper params, active subscription' do
       it 'returns a new customer' do
         VCR.use_cassette('add_customer') do
-          expect(response).to be_a(SimpleDesk::Customer)
+          expect(response).to be_a(SendSonar::Customer)
         end
       end
 
@@ -119,14 +119,14 @@ describe 'SimpleDesk' do
 
   describe '.message_customer' do
     before do
-      SimpleDesk.configure do |config|
+      SendSonar.configure do |config|
         config.token = token
         config.env = :local
       end
     end
 
     let(:cassette_group) { "message_customer" }
-    let(:response) { SimpleDesk.message_customer(params) }
+    let(:response) { SendSonar.message_customer(params) }
     let(:token) { '3Z9L8xFjeNmXL7Yn-pFJUBoxkVWBbl5o' }
     let(:params) do
       { :to => "5555555557", :text => "this is the message text" }
@@ -141,7 +141,7 @@ describe 'SimpleDesk' do
 
       it 'raises a BadRequest error with hint' do
         VCR.use_cassette("message_customer_bad_params") do
-          expect { response }.to raise_error(SimpleDesk::BadRequest,
+          expect { response }.to raise_error(SendSonar::BadRequest,
             '400 Bad Request: {"error":"text is missing, to is missing"}')
         end
       end
@@ -150,7 +150,7 @@ describe 'SimpleDesk' do
     context 'with proper params, active subscription' do
       it 'returns a new customer' do
         VCR.use_cassette('message_customer') do
-          expect(response).to be_a(SimpleDesk::Message)
+          expect(response).to be_a(SendSonar::Message)
         end
       end
 
