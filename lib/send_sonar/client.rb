@@ -1,8 +1,27 @@
 module SendSonar
   module Client
+    @@open_timeout = 2
+    @@timeout = 4
+
+    def self.open_timeout
+      @@open_timeout
+    end
+
+    def self.open_timeout=(timeout)
+      @@open_timeout = timeout
+    end
+
+    def self.timeout
+      @@timeout
+    end
+
+    def self.timeout=(timeout)
+      @@timeout = timeout
+    end
+
     def self.post(url, payload, headers={}, &block)
       RestClient::Request.execute(:method => :post, :url => url, :payload => payload, :headers => headers,
-        :open_timeout => 2, :timeout => 4, &block)
+        :open_timeout => @@open_timeout, :timeout => @@timeout, &block)
 
     rescue Errno::ECONNREFUSED => e
       raise ConnectionRefused.new(e)

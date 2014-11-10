@@ -23,6 +23,22 @@ module SendSonar
       end
     end
 
+    def open_timeout
+      Client.open_timeout
+    end
+
+    def open_timeout=(timeout)
+      Client.open_timeout = timeout
+    end
+
+    def timeout
+      Client.timeout
+    end
+
+    def timeout=(timeout)
+      Client.timeout = timeout
+    end
+
     private
 
     def env_choices
