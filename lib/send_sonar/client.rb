@@ -16,8 +16,8 @@ module SendSonar
       else
         response = e.response && JSON.parse(e.response) || {}
         error = response["error"]
-        exception = error && Exceptions::EXCEPTIONS_MAP[error].new(e) || Exception::UnknownRequestError.new(e)
-        raise exception
+        exception_class = Exceptions::EXCEPTIONS_MAP[error] || Exception::UnknownRequestError
+        raise exception_class.new(e)
       end
     end
   end
