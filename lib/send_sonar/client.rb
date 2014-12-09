@@ -1,8 +1,7 @@
 module SendSonar
   module Client
     def self.post(url, payload, headers={}, &block)
-      RestClient::Request.execute(:method => :post, :url => url, :payload => payload, :headers => headers,
-        :open_timeout => 8, :timeout => 10, &block)
+      RestClient::Request.execute(:method => :post, :url => url, :payload => payload, :headers => headers, &block)
 
     rescue Errno::ECONNREFUSED => e
       raise ConnectionRefused.new(e)
@@ -16,7 +15,7 @@ module SendSonar
       else
         response = e.response && JSON.parse(e.response) || {}
         error = response["error"]
-        exception_class = Exceptions::EXCEPTIONS_MAP[error] || Exception::UnknownRequestError
+        exception_class = Exceptions::EXCEPTIONS_MAP[error] || UnknownRequestError
         raise exception_class.new(e)
       end
     end

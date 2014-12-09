@@ -46,7 +46,8 @@ module SendSonar
     EXCEPTIONS_MAP = {
       "Bad Token" => BadToken,
       "No Active Subscription" => NoActiveSubscription,
-      "Api Disabled For Company" => ApiDisabledForCompany
+      "Api Disabled For Company" => ApiDisabledForCompany,
+      "Request Timed Out" => RequestTimeout
     }
   end
 end
