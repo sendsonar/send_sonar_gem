@@ -99,6 +99,17 @@ The response is a `SendSonar::Customer` object with the following accessors:
   * subscribed (boolean)
   * properties (hash)
 
+## Errors
+There are many reasons why requests can fail. There are custom error classes to help you figure out what went wrong.
+
+Note, all request errors inherit from `SendSonar::RequestException`. Therefore you can rescue all request errors with `rescue SendSonar::RequestException`. The current supported error classes are:
+
+  * SendSonar::BadToken
+  * SendSonar::NoActiveSubscription
+  * SendSonar::ApiDisabledForCompany
+  * SendSonar::RequestTimeout
+  * SendSonar::ConnectionRefused
+  * SendSonar::UnknownRequestError (the server return an error response that your version of the gem does not recognize.)
 
 ## Support
 Email api-help@sendsonar.com if you are having issues with the gem or service.
