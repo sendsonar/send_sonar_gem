@@ -37,6 +37,7 @@ module SendSonar
   class ApiDisabledForCompany < RequestException; end
   class UnknownRequestError < RequestException; end
   class RequestTimeout < RequestException; end
+  class ServerBrokeConnection < RequestException; end
   class ConnectionRefused < RequestException; end
 
   class Customer < OpenStruct; end
