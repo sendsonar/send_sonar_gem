@@ -13,10 +13,11 @@ module SendSonar
       if e.http_code == 400
         raise BadRequest.new(e)
       else
-        response = e.response && JSON.parse(e.response) || {}
-        error = response["error"]
-        exception_class = Exceptions::EXCEPTIONS_MAP[error] || UnknownRequestError
-        raise exception_class.new(e)
+        raise "SONAR ERROR: #{e.response} - #{e.message}"
+        # response = e.response && JSON.parse(e.response) || {}
+        # error = response["error"]
+        # exception_class = Exceptions::EXCEPTIONS_MAP[error] || UnknownRequestError
+        # raise exception_class.new(e)
       end
     end
   end
