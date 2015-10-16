@@ -1,3 +1,7 @@
+v 1.0.9
+-------
+Temporary solution giving more information about why a request failed.
+
 v 1.0.0
 -------
 Configuration is now done through an initializer
