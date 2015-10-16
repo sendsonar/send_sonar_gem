@@ -1,4 +1,3 @@
-require 'pry'
 module SendSonar
   module Client
     def self.post(url, payload, headers={}, &block)
