@@ -6,8 +6,8 @@ require 'send_sonar/version'
 Gem::Specification.new do |spec|
   spec.name          = "send_sonar"
   spec.version       = SendSonar::VERSION
-  spec.authors       = ["John Gesimondo"]
-  spec.email         = ["john@jmondo.com"]
+  spec.authors       = ["Matthew Berman"]
+  spec.email         = ["matt@sendsonar.com"]
   spec.summary       = %q{Provides a clean and simple gem to connect to Sonar}
   spec.description   = ""
   spec.homepage      = "http://github.com/sendsonar/send_sonar_gem"

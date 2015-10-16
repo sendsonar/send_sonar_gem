@@ -61,6 +61,7 @@ describe 'SendSonar' do
         end
       end
     end
+
   end
 
   describe '.add_customer' do

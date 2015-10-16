@@ -1,3 +1,4 @@
+require 'pry'
 module SendSonar
   module Client
     def self.post(url, payload, headers={}, &block)
@@ -13,7 +14,13 @@ module SendSonar
       if e.http_code == 400
         raise BadRequest.new(e)
       else
-        raise "SONAR ERROR: #{e.response} - #{e.message}"
+        response = e.response && JSON.parse(e.response) || {}
+        error = response["error"]
+        if exception_class = Exceptions::EXCEPTIONS_MAP[error]
+          raise exception_class.new(e)
+        else
+          raise "SONAR ERROR: #{e.response} - #{e.message}"
+        end
       end
     end
   end
