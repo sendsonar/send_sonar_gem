@@ -1,10 +1,11 @@
-require "send_sonar/version"
-require "send_sonar/configuration"
-require "send_sonar/exceptions"
-require "send_sonar/client"
-require "rest_client"
-require "ostruct"
-require "json"
+require 'rubygems'
+require 'send_sonar/version'
+require 'send_sonar/configuration'
+require 'send_sonar/exceptions'
+require 'send_sonar/client'
+require 'rest_client'
+require 'ostruct'
+require 'json'
 
 module SendSonar
   extend self
