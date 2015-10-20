@@ -33,6 +33,7 @@ module SendSonar
   end
 
   class BadToken < RequestException; end
+  class InvalidPhoneNumber < RequestException; end
   class NoActiveSubscription < RequestException; end
   class ApiDisabledForCompany < RequestException; end
   class UnknownRequestError < RequestException; end
@@ -47,7 +48,8 @@ module SendSonar
       "Bad Token" => BadToken,
       "No Active Subscription" => NoActiveSubscription,
       "Api Disabled For Company" => ApiDisabledForCompany,
-      "Request Timed Out" => RequestTimeout
+      "Request Timed Out" => RequestTimeout,
+      "Invalid Phone Number" => InvalidPhoneNumber
     }
   end
 end
