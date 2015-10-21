@@ -98,6 +98,17 @@ describe 'SendSonar' do
       end
     end
 
+    context 'with an invalid phone number' do
+      let(:token) { 'tKux9Vwkt0UuTVJqGUO80MGJHCAeebpe' }
+
+      it 'raises a Invalid Phone Number error' do
+        VCR.use_cassette("#{cassette_group}_invalid_phone_number") do
+          expect { response }.to raise_error(SendSonar::BadRequest,
+            '400 Bad Request: {"error":"Invalid Phone Number"}')
+        end
+      end
+    end
+
     context 'with proper params, active subscription' do
       it 'returns a new customer' do
         VCR.use_cassette('add_customer') do
@@ -144,6 +155,17 @@ describe 'SendSonar' do
         VCR.use_cassette("message_customer_bad_params") do
           expect { response }.to raise_error(SendSonar::BadRequest,
             '400 Bad Request: {"error":"text is missing, to is missing"}')
+        end
+      end
+    end
+
+    context 'with an invalid phone number' do
+      let(:token) { 'tKux9Vwkt0UuTVJqGUO80MGJHCAeebpe' }
+
+      it 'raises a Invalid Phone Number error' do
+        VCR.use_cassette("#{cassette_group}_invalid_phone_number") do
+          expect { response }.to raise_error(SendSonar::BadRequest,
+            '400 Bad Request: {"error":"Invalid Phone Number"}')
         end
       end
     end

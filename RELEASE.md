@@ -1,3 +1,7 @@
+v 1.1.0
+-------
+Added invalid phone number error and tests for it.
+
 v 1.0.9
 -------
 Temporary solution giving more information about why a request failed.
