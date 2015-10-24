@@ -46,7 +46,7 @@ SendSonar.configure do |config|
 
   elsif Rails.env.staging?
     config.env = :sandbox
-    config.token = ENV['SONAR_SANDBOX_TOKEN'] || 'YOUR_PRODUCTION_TOKEN'
+    config.token = ENV['SONAR_SANDBOX_TOKEN'] || 'YOUR_SANDBOX_TOKEN'
   end
 end
 ```
