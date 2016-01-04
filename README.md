@@ -33,8 +33,8 @@ See RELEASE.md
 ## Setup
 Initialize the gem by creating an initializer.
 
-* Your production token can be found at https://www.sendsonar.com/api_info.
-* Your sandbox token can be found at https://sandbox.sendsonar.com/api_info
+* Your production token can be found if you log into https://sendsonar.com, click the left menu and select Settings, then Company Settings
+* Your sandbox token can be found if you log into https://sandbox.sendsonar.com/api_info, click on the left menu and select Settings, then Company Settings
 
 ```ruby
 # config/initializers/send_sonar.rb
