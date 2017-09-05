@@ -24,7 +24,7 @@ module SendSonar
     end
 
     def inspect
-      @original_exception.inspect
+      "#{@original_exception.to_s}: #{@original_exception.http_body}"
     end
 
     def to_s
