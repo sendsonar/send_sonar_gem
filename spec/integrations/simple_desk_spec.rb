@@ -35,9 +35,9 @@ describe 'SendSonar' do
     context 'with an invalid token' do
       let(:token) { 'FAKE_TOKEN' }
 
-      it 'raises a BadToken error' do
+      it 'raises a BadToken exception' do
         VCR.use_cassette("#{cassette_group}_bad_token") do
-          expect { response }.to raise_error(SendSonar::BadToken, 'SendSonar::BadToken')
+          expect { response }.to raise_exception(SendSonar::BadToken, 'SendSonar::BadToken')
         end
       end
     end
@@ -45,9 +45,9 @@ describe 'SendSonar' do
     context 'with an inactive subscription' do
       let(:token) { 'tKux9Vwkt0UuTVJqGUO80MGJHCAeebpe' }
 
-      it 'raises a BadToken error' do
+      it 'raises a NoActiveSubscription exception' do
         VCR.use_cassette("#{cassette_group}_no_subscription") do
-          expect { response }.to raise_error(SendSonar::NoActiveSubscription, 'SendSonar::NoActiveSubscription')
+          expect { response }.to raise_exception(SendSonar::NoActiveSubscription, 'SendSonar::NoActiveSubscription')
         end
       end
     end
@@ -55,9 +55,9 @@ describe 'SendSonar' do
     context 'with disabled API' do
       let(:token) { 'ts9mOO_O5Dc7TOBaEAQym-00RGEl3Uel' }
 
-      it 'raises a BadToken error' do
+      it 'raises an ApiDisabledForCompany error' do
         VCR.use_cassette("#{cassette_group}_api_disabled") do
-          expect { response }.to raise_error(SendSonar::ApiDisabledForCompany, 'SendSonar::ApiDisabledForCompany')
+          expect { response }.to raise_exception(SendSonar::ApiDisabledForCompany, 'SendSonar::ApiDisabledForCompany')
         end
       end
     end
@@ -90,9 +90,9 @@ describe 'SendSonar' do
         { :phone_numbah => "5555555558" }
       end
 
-      it 'raises a BadRequest error with hint' do
+      it 'raises a BadRequest exception with hint' do
         VCR.use_cassette("add_customer_bad_params") do
-          expect { response }.to raise_error(SendSonar::BadRequest,
+          expect { response }.to raise_exception(SendSonar::BadRequest,
             'SendSonar::BadRequest: 400 Bad Request: {"error":"phone_number is missing"}')
         end
       end
@@ -101,9 +101,9 @@ describe 'SendSonar' do
     context 'with an invalid phone number' do
       let(:token) { 'tKux9Vwkt0UuTVJqGUO80MGJHCAeebpe' }
 
-      it 'raises a Invalid Phone Number error' do
+      it 'raises a BadRequest exception with Invalid Phone Number error message' do
         VCR.use_cassette("#{cassette_group}_invalid_phone_number") do
-          expect { response }.to raise_error(SendSonar::BadRequest,
+          expect { response }.to raise_exception(SendSonar::BadRequest,
             'SendSonar::BadRequest: 400 Bad Request: {"error":"Invalid Phone Number"}')
         end
       end
@@ -151,9 +151,9 @@ describe 'SendSonar' do
         { :toz => "5555555558" }
       end
 
-      it 'raises a BadRequest error with hint' do
+      it 'raises a BadRequest exception with hint' do
         VCR.use_cassette("message_customer_bad_params") do
-          expect { response }.to raise_error(SendSonar::BadRequest,
+          expect { response }.to raise_exception(SendSonar::BadRequest,
             'SendSonar::BadRequest: 400 Bad Request: {"error":"text is missing, to is missing"}')
         end
       end
@@ -162,9 +162,9 @@ describe 'SendSonar' do
     context 'with an invalid phone number' do
       let(:token) { 'tKux9Vwkt0UuTVJqGUO80MGJHCAeebpe' }
 
-      it 'raises a Invalid Phone Number error' do
+      it 'raises a BadRequest exception with Invalid Phone Number error message' do
         VCR.use_cassette("#{cassette_group}_invalid_phone_number") do
-          expect { response }.to raise_error(SendSonar::BadRequest,
+          expect { response }.to raise_exception(SendSonar::BadRequest,
             'SendSonar::BadRequest: 400 Bad Request: {"error":"Invalid Phone Number"}')
         end
       end
