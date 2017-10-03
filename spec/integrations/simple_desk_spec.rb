@@ -93,7 +93,7 @@ describe 'SendSonar' do
       it 'raises a BadRequest error with hint' do
         VCR.use_cassette("add_customer_bad_params") do
           expect { response }.to raise_error(SendSonar::BadRequest,
-            '400 Bad Request: {"error":"phone_number is missing"}')
+            'SendSonar::BadRequest: 400 Bad Request: {"error":"phone_number is missing"}')
         end
       end
     end
@@ -104,7 +104,7 @@ describe 'SendSonar' do
       it 'raises a Invalid Phone Number error' do
         VCR.use_cassette("#{cassette_group}_invalid_phone_number") do
           expect { response }.to raise_error(SendSonar::BadRequest,
-            '400 Bad Request: {"error":"Invalid Phone Number"}')
+            'SendSonar::BadRequest: 400 Bad Request: {"error":"Invalid Phone Number"}')
         end
       end
     end
@@ -154,7 +154,7 @@ describe 'SendSonar' do
       it 'raises a BadRequest error with hint' do
         VCR.use_cassette("message_customer_bad_params") do
           expect { response }.to raise_error(SendSonar::BadRequest,
-            '400 Bad Request: {"error":"text is missing, to is missing"}')
+            'SendSonar::BadRequest: 400 Bad Request: {"error":"text is missing, to is missing"}')
         end
       end
     end
@@ -165,7 +165,7 @@ describe 'SendSonar' do
       it 'raises a Invalid Phone Number error' do
         VCR.use_cassette("#{cassette_group}_invalid_phone_number") do
           expect { response }.to raise_error(SendSonar::BadRequest,
-            '400 Bad Request: {"error":"Invalid Phone Number"}')
+            'SendSonar::BadRequest: 400 Bad Request: {"error":"Invalid Phone Number"}')
         end
       end
     end
