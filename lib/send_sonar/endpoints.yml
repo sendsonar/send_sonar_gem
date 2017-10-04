@@ -1,15 +1,19 @@
 local:
   messages: http://localhost:3000/api/v1/messages
   customers: http://localhost:3000/api/v1/customers
+  campaigns: http://localhost:3000/api/v1/campaigns
 
 staging:
   messages: https://staging.sendsonar.com/api/v1/messages
   customers: https://staging.sendsonar.com/api/v1/customers
+  campaigns: https://staging.sendsonar.com/api/v1/campaigns
 
 sandbox:
   messages: https://sandbox.sendsonar.com/api/v1/messages
   customers: https://sandbox.sendsonar.com/api/v1/customers
+  campaigns: https://sandbox.sendsonar.com/api/v1/campaigns
 
 live:
   messages: https://www.sendsonar.com/api/v1/messages
   customers: https://www.sendsonar.com/api/v1/customers
+  campaigns: https://www.sendsonar.com/api/v1/campaigns

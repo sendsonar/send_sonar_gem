@@ -187,4 +187,39 @@ describe 'SendSonar' do
       end
     end
   end
+
+  describe '.send_campaign' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    # let(:cassette_group) { "send_campaign" }
+    let(:response) { SendSonar.send_campaign(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:recepient_number) { "+13105551111" }
+    let(:params) do
+      { :to => recepient_number, :campaign_id => "test_d0Bu23" }
+    end
+
+    context 'with proper params, active subscription' do
+      it 'returns a campaign sent receipt' do
+        VCR.use_cassette('send_campaign') do
+          expect(response).to be_a(SendSonar::CampaignSent)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('send_campaign') do
+          campaign_sent = response
+          expect(campaign_sent.to).to eq(recepient_number)
+          expect(campaign_sent.text).to eq("sent")
+          expect(campaign_sent.status).to eq("queued")
+        end
+      end
+    end
+  end
+
 end

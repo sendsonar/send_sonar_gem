@@ -24,6 +24,11 @@ module SendSonar
     Message.new(JSON.parse(resp))
   end
 
+  def send_campaign params
+    resp = Client.post url_for(:campaigns), params, headers
+    CampaignSent.new(JSON.parse(resp))
+  end
+
   private
 
   attr_reader :config
