@@ -34,6 +34,11 @@ module SendSonar
     CustomerClosed.new(JSON.parse(resp))
   end
 
+  def delete_customer_property params
+    resp = Client.delete url_for(:delete_customer_property), params, headers
+    CustomerPropertyDeleted.new(JSON.parse(resp))
+  end
+
   private
 
   attr_reader :config

@@ -3,21 +3,25 @@ local:
   customers: http://localhost:3000/api/v1/customers
   campaigns: http://localhost:3000/api/v1/campaigns
   close_customer: http://localhost:3000/api/v1/customers/close
+  delete_customer_property: http://localhost:3000/api/v1/customers/properties
 
 staging:
   messages: https://staging.sendsonar.com/api/v1/messages
   customers: https://staging.sendsonar.com/api/v1/customers
   campaigns: https://staging.sendsonar.com/api/v1/campaigns
   close_customer: https://staging.sendsonar.com/api/v1/customers/close
+  delete_customer_property: https://staging.sendsonar.com/api/v1/customers/properties
 
 sandbox:
   messages: https://sandbox.sendsonar.com/api/v1/messages
   customers: https://sandbox.sendsonar.com/api/v1/customers
   campaigns: https://sandbox.sendsonar.com/api/v1/campaigns
   close_customer: https://sandbox.sendsonar.com/api/v1/customers/close
+  delete_customer_property: https://sandbox.sendsonar.com/api/v1/customers/properties
 
 live:
   messages: https://www.sendsonar.com/api/v1/messages
   customers: https://www.sendsonar.com/api/v1/customers
   campaigns: https://www.sendsonar.com/api/v1/campaigns
   close_customer: https://www.sendsonar.com/api/v1/customers/close
+  delete_customer_property: https://www.sendsonar.com/api/v1/customers/properties

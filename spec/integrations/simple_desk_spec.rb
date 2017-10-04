@@ -253,4 +253,64 @@ describe 'SendSonar' do
     end
   end
 
+  describe '.delete_customer_property' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    let(:response) { SendSonar.delete_customer_property(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:phone_number) { '+13105551111' }
+    let(:email) { 'one@example.com' }
+
+    context 'using phone_number param' do
+      let(:property_name) { 'foo' }
+      let(:params) do
+        { :phone_number => phone_number, :property_name => property_name }
+      end
+      it 'returns a customer property deleted' do
+        VCR.use_cassette('delete_customer_property_with_phone_number') do
+          expect(response).to be_a(SendSonar::CustomerPropertyDeleted)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('delete_customer_property_with_phone_number') do
+          customer_property_deleted = response
+          expect(customer_property_deleted.phone_number).to eq(phone_number)
+          expect(customer_property_deleted.email).to eq(email)
+          expect(customer_property_deleted.property_name).to eq(property_name)
+          expect(customer_property_deleted.phone_number).to eq(phone_number)
+          expect(customer_property_deleted.deleted).to eq(true)
+        end
+      end
+    end
+
+    context 'using email param' do
+      let(:property_name) { 'bar' }
+      let(:params) do
+        { :email => email, :property_name => property_name }
+      end
+      it 'returns a customer property deleted' do
+        VCR.use_cassette('delete_customer_property_with_email') do
+          expect(response).to be_a(SendSonar::CustomerPropertyDeleted)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('delete_customer_property_with_email') do
+          customer_property_deleted = response
+          expect(customer_property_deleted.phone_number).to eq(phone_number)
+          expect(customer_property_deleted.email).to eq(email)
+          expect(customer_property_deleted.property_name).to eq(property_name)
+          expect(customer_property_deleted.phone_number).to eq(phone_number)
+          expect(customer_property_deleted.deleted).to eq(true)
+        end
+      end
+    end
+  end
+
 end
