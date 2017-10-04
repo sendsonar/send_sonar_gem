@@ -29,6 +29,11 @@ module SendSonar
     CampaignSent.new(JSON.parse(resp))
   end
 
+  def close_customer params
+    resp = Client.post url_for(:close_customer), params, headers
+    CustomerClosed.new(JSON.parse(resp))
+  end
+
   private
 
   attr_reader :config

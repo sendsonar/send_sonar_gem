@@ -43,6 +43,7 @@ module SendSonar
   class Customer < OpenStruct; end
   class Message < OpenStruct; end
   class CampaignSent < OpenStruct; end
+  class CustomerClosed < OpenStruct; end
 
   module Exceptions
     EXCEPTIONS_MAP = {

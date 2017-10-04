@@ -222,4 +222,35 @@ describe 'SendSonar' do
     end
   end
 
+  describe '.close_customer' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    # let(:cassette_group) { "close_customer" }
+    let(:response) { SendSonar.close_customer(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:params) do
+      { :phone_number => "+13105551111" }
+    end
+
+    context 'with proper param, active subscription' do
+      it 'returns a customer closed status' do
+        VCR.use_cassette('close_customer') do
+          expect(response).to be_a(SendSonar::CustomerClosed)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('close_customer') do
+          customer_closed = response
+          expect(customer_closed.success).to eq(true)
+        end
+      end
+    end
+  end
+
 end
