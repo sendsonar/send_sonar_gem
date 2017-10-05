@@ -39,6 +39,7 @@ module SendSonar
   class UnknownRequestError < RequestException; end
   class RequestTimeout < RequestException; end
   class ConnectionRefused < RequestException; end
+  class TokenOrPublishableKeyNotFound < RequestException; end
 
   class Customer < OpenStruct; end
   class Message < OpenStruct; end
@@ -53,7 +54,8 @@ module SendSonar
       "No Active Subscription" => NoActiveSubscription,
       "Api Disabled For Company" => ApiDisabledForCompany,
       "Request Timed Out" => RequestTimeout,
-      "Invalid Phone Number" => InvalidPhoneNumber
+      "Invalid Phone Number" => InvalidPhoneNumber,
+      "Token or publishable_key not found" => TokenOrPublishableKeyNotFound
     }
   end
 end

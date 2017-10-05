@@ -188,6 +188,18 @@ describe 'SendSonar' do
     end
   end
 
+  shared_examples "an error receiving gem" do |context|
+    context 'with an invalid token' do
+      let(:token) { 'FAKE_TOKEN' }
+
+      it 'raises a BadToken exception' do
+        VCR.use_cassette("#{cassette_group}_bad_token") do
+          expect { response }.to raise_exception(SendSonar::TokenOrPublishableKeyNotFound, 'SendSonar::TokenOrPublishableKeyNotFound')
+        end
+      end
+    end
+  end
+
   describe '.send_campaign' do
     before do
       SendSonar.configure do |config|
@@ -196,7 +208,7 @@ describe 'SendSonar' do
       end
     end
 
-    # let(:cassette_group) { "send_campaign" }
+    let(:cassette_group) { "send_campaign" }
     let(:response) { SendSonar.send_campaign(params) }
     let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
     let(:recepient_number) { "+13105551111" }
@@ -220,6 +232,8 @@ describe 'SendSonar' do
         end
       end
     end
+
+    it_behaves_like "an error receiving gem"
   end
 
   describe '.close_customer' do
@@ -230,7 +244,7 @@ describe 'SendSonar' do
       end
     end
 
-    # let(:cassette_group) { "close_customer" }
+    let(:cassette_group) { "close_customer" }
     let(:response) { SendSonar.close_customer(params) }
     let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
     let(:params) do
@@ -251,6 +265,8 @@ describe 'SendSonar' do
         end
       end
     end
+
+    it_behaves_like "an error receiving gem"
   end
 
   describe '.delete_customer_property' do
@@ -261,6 +277,7 @@ describe 'SendSonar' do
       end
     end
 
+    let(:cassette_group) { "delete_customer_property" }
     let(:response) { SendSonar.delete_customer_property(params) }
     let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
     let(:phone_number) { '+13105551111' }
@@ -287,6 +304,8 @@ describe 'SendSonar' do
           expect(customer_property_deleted.deleted).to eq(true)
         end
       end
+
+      it_behaves_like "an error receiving gem"
     end
 
     context 'using email param' do
@@ -321,6 +340,7 @@ describe 'SendSonar' do
       end
     end
 
+    let(:cassette_group) { "get_customer" }
     let(:response) { SendSonar.get_customer(params) }
     let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
     let(:phone_number) { '+13105551111' }
@@ -349,6 +369,8 @@ describe 'SendSonar' do
         end
       end
     end
+
+    it_behaves_like "an error receiving gem"
   end
 
   describe '.available_phone_number' do
@@ -373,6 +395,16 @@ describe 'SendSonar' do
         VCR.use_cassette('available_phone_number') do
           available_number = response
           expect(available_number).to respond_to(:available_number)
+        end
+      end
+    end
+
+    context 'with an invalid publishable key' do
+      let(:publishable_key) { 'BAD_PUBLISHABLE_KEY' }
+
+      it 'raises a TokenOrPublishableKeyNotFound exception' do
+        VCR.use_cassette("available_phone_number_bad_publishable_key") do
+          expect { response }.to raise_exception(SendSonar::TokenOrPublishableKeyNotFound, 'SendSonar::TokenOrPublishableKeyNotFound')
         end
       end
     end
