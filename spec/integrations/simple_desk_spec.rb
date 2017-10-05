@@ -313,4 +313,42 @@ describe 'SendSonar' do
     end
   end
 
+  describe '.get_customer' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    let(:response) { SendSonar.get_customer(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:phone_number) { '+13105551111' }
+    let(:params) do
+      { :phone_number => phone_number }
+    end
+
+    context 'with proper param, active subscription' do
+      it 'returns a customer' do
+        VCR.use_cassette('get_customer') do
+          expect(response).to be_a(SendSonar::Customer)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('get_customer') do
+          customer = response
+          expect(customer.phone_number).to eq(phone_number)
+          expect(customer).to respond_to(:first_name)
+          expect(customer).to respond_to(:last_name)
+          expect(customer).to respond_to(:email)
+          expect(customer).to respond_to(:assigned_phone_number)
+          expect(customer).to respond_to(:subscribed)
+          expect(customer).to respond_to(:unsubscribed_at)
+          expect(customer).to respond_to(:properties)
+        end
+      end
+    end
+  end
+
 end

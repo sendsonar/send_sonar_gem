@@ -39,6 +39,14 @@ module SendSonar
     CustomerPropertyDeleted.new(JSON.parse(resp))
   end
 
+  def get_customer params
+    query = params.merge({ :token => config.token })
+    # RestClient forms the GET query string from the params field of the header
+    # Set the query hash above to the params field of the header hash below
+    resp = Client.get url_for(:customers), { params: query }
+    Customer.new(JSON.parse(resp))
+  end
+
   private
 
   attr_reader :config
