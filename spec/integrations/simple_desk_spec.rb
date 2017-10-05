@@ -351,4 +351,31 @@ describe 'SendSonar' do
     end
   end
 
+  describe '.available_phone_number' do
+    before do
+      SendSonar.configure do |config|
+        config.publishable_key = publishable_key
+        config.env = :sandbox
+      end
+    end
+
+    let(:response) { SendSonar.available_phone_number }
+    let(:publishable_key) { 'f77a884d-4c52-4369-90c2-22a3d5607c24' }
+
+    context 'with proper param, active subscription' do
+      it 'returns an available number' do
+        VCR.use_cassette('available_phone_number') do
+          expect(response).to be_a(SendSonar::AvailableNumber)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('available_phone_number') do
+          available_number = response
+          expect(available_number).to respond_to(:available_number)
+        end
+      end
+    end
+  end
+
 end

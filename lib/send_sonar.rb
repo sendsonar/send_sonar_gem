@@ -47,12 +47,22 @@ module SendSonar
     Customer.new(JSON.parse(resp))
   end
 
+  def available_phone_number
+    keys_in_header = { :publishable_key => true, :token => false }
+    resp = Client.get url_for(:available_phone_number), headers(keys_in_header)
+    AvailableNumber.new(JSON.parse(resp))
+  end
+
   private
 
   attr_reader :config
 
-  def headers
-    { :token => config.token, :client => "rubygem #{SendSonar::VERSION}" }
+  def headers include_headers={}
+    include_headers = include_headers.merge({:token => true}) unless include_headers.key? :token
+    headers = { :client => "rubygem #{SendSonar::VERSION}" }
+    headers = headers.merge({ :token => config.token }) if include_headers[:token]
+    headers = headers.merge({ :x_publishable_key => config.publishable_key }) if include_headers[:publishable_key]
+    headers
   end
 
   def url_for(key)

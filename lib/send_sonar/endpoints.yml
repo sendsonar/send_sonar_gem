@@ -4,6 +4,7 @@ local:
   campaigns: http://localhost:3000/api/v1/campaigns
   close_customer: http://localhost:3000/api/v1/customers/close
   delete_customer_property: http://localhost:3000/api/v1/customers/properties
+  available_phone_number: http://localhost:3000/api/v1/phone_numbers/available
 
 staging:
   messages: https://staging.sendsonar.com/api/v1/messages
@@ -11,6 +12,7 @@ staging:
   campaigns: https://staging.sendsonar.com/api/v1/campaigns
   close_customer: https://staging.sendsonar.com/api/v1/customers/close
   delete_customer_property: https://staging.sendsonar.com/api/v1/customers/properties
+  available_phone_number: https://staging.sendsonar.com/api/v1/phone_numbers/available
 
 sandbox:
   messages: https://sandbox.sendsonar.com/api/v1/messages
@@ -18,6 +20,7 @@ sandbox:
   campaigns: https://sandbox.sendsonar.com/api/v1/campaigns
   close_customer: https://sandbox.sendsonar.com/api/v1/customers/close
   delete_customer_property: https://sandbox.sendsonar.com/api/v1/customers/properties
+  available_phone_number: https://sandbox.sendsonar.com/api/v1/phone_numbers/available
 
 live:
   messages: https://www.sendsonar.com/api/v1/messages
@@ -25,3 +28,4 @@ live:
   campaigns: https://www.sendsonar.com/api/v1/campaigns
   close_customer: https://www.sendsonar.com/api/v1/customers/close
   delete_customer_property: https://www.sendsonar.com/api/v1/customers/properties
+  available_phone_number: https://www.sendsonar.com/api/v1/phone_numbers/available
