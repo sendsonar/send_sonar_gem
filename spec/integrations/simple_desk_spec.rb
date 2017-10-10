@@ -263,7 +263,7 @@ describe 'SendSonar' do
     context 'with proper params, active subscription' do
       it 'returns a campaign sent receipt' do
         VCR.use_cassette('send_campaign') do
-          expect(response).to be_a(SendSonar::CampaignSent)
+          expect(response).to be_a(SendSonar::Response)
         end
       end
 
@@ -298,7 +298,7 @@ describe 'SendSonar' do
     context 'with proper param, active subscription' do
       it 'returns a customer closed status' do
         VCR.use_cassette('close_customer') do
-          expect(response).to be_a(SendSonar::CustomerClosed)
+          expect(response).to be_a(SendSonar::Response)
         end
       end
 
@@ -334,7 +334,7 @@ describe 'SendSonar' do
       end
       it 'returns a customer property deleted' do
         VCR.use_cassette('delete_customer_property_with_phone_number') do
-          expect(response).to be_a(SendSonar::CustomerPropertyDeleted)
+          expect(response).to be_a(SendSonar::Response)
         end
       end
 
@@ -359,7 +359,7 @@ describe 'SendSonar' do
       end
       it 'returns a customer property deleted' do
         VCR.use_cassette('delete_customer_property_with_email') do
-          expect(response).to be_a(SendSonar::CustomerPropertyDeleted)
+          expect(response).to be_a(SendSonar::Response)
         end
       end
 
@@ -431,7 +431,7 @@ describe 'SendSonar' do
     context 'with proper param, active subscription' do
       it 'returns an available number' do
         VCR.use_cassette('available_phone_number') do
-          expect(response).to be_a(SendSonar::AvailableNumber)
+          expect(response).to be_a(SendSonar::Response)
         end
       end
 

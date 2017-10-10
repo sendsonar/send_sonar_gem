@@ -27,17 +27,17 @@ module SendSonar
 
   def send_campaign params
     resp = Client.post url_for(:campaigns), params, headers
-    CampaignSent.new(JSON.parse(resp))
+    Response.new(JSON.parse(resp))
   end
 
   def close_customer params
     resp = Client.post url_for(:close_customer), params, headers
-    CustomerClosed.new(JSON.parse(resp))
+    Response.new(JSON.parse(resp))
   end
 
   def delete_customer_property params
     resp = Client.delete url_for(:delete_customer_property), params, headers
-    CustomerPropertyDeleted.new(JSON.parse(resp))
+    Response.new(JSON.parse(resp))
   end
 
   def get_customer params
@@ -51,7 +51,7 @@ module SendSonar
   def available_phone_number
     keys_in_header = { :publishable_key => true, :token => false }
     resp = Client.get url_for(:available_phone_number), headers(keys_in_header)
-    AvailableNumber.new(JSON.parse(resp))
+    Response.new(JSON.parse(resp))
   end
 
   private
