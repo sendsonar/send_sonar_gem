@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.sendsonar.com/api/v1/customers
+    body:
+      encoding: UTF-8
+      string: phone_number=%2B13105555555&email=five%40example.com&first_name=Five&last_name=Example&properties[great_customer]=true
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin15.5.0 x86_64) ruby/2.3.1p112
+      Client:
+      - rubygem 1.1.0
+      Token:
+      - 99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL
+      Content-Length:
+      - '118'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Host:
+      - sandbox.sendsonar.com
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Tue, 10 Oct 2017 23:40:15 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Etag:
+      - W/"c9731e89bc35e8bf098fb635e154d319"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - ec77f356-0e86-407c-9e3d-37e515c67b3c
+      X-Runtime:
+      - '1.024614'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Content-Length:
+      - '173'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"phone_number":"+13105555555","email":"five@example.com","first_name":"Five","last_name":"Example","subscribed":true,"properties":{"great_customer":"true"},"assignee":null}'
+    http_version: 
+  recorded_at: Tue, 10 Oct 2017 23:40:15 GMT
+recorded_with: VCR 3.0.3

@@ -129,6 +129,50 @@ describe 'SendSonar' do
     end
   end
 
+  describe '.add_update_customer' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    let(:response) { SendSonar.add_update_customer(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:phone_number) { '+13105555555' }
+    let(:email) { 'five@example.com' }
+    let(:first_name) { 'Five' }
+    let(:last_name) { 'Example' }
+    let(:properties) { { 'great_customer' => 'true' } }
+    let(:params) do
+      { :phone_number => phone_number,
+        :email => email,
+        :first_name => first_name,
+        :last_name => last_name,
+        :properties => properties }
+    end
+
+    context 'with proper param, active subscription' do
+      it 'returns a customer' do
+        VCR.use_cassette('add_update_customer') do
+          expect(response).to be_a(SendSonar::Customer)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('add_update_customer') do
+          customer = response
+          expect(customer.phone_number).to eq(phone_number)
+          expect(customer.email).to eq(email)
+          expect(customer.first_name).to eq(first_name)
+          expect(customer.last_name).to eq(last_name)
+          expect(customer.properties).to eq(properties)
+        end
+      end
+    end
+
+  end
+
   describe '.message_customer' do
     before do
       SendSonar.configure do |config|

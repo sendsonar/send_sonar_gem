@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'send_sonar/version'
 require 'send_sonar/configuration'
 require 'send_sonar/exceptions'
@@ -18,6 +17,8 @@ module SendSonar
     resp = Client.post url_for(:customers), params, headers
     Customer.new(JSON.parse(resp))
   end
+
+  alias_method :add_update_customer, :add_customer
 
   def message_customer(params)
     resp = Client.post url_for(:messages), params, headers
