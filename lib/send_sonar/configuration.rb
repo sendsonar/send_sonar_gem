@@ -5,7 +5,7 @@ module SendSonar
     ENV_URLS = YAML.load_file(File.expand_path('../endpoints.yml', __FILE__))
     ALLOWED_ENVS = ENV_URLS.keys
 
-    attr_writer :token
+    attr_writer :token, :publishable_key
 
     def env
       @env || :sandbox
@@ -13,6 +13,10 @@ module SendSonar
 
     def token
       @token || raise(SendSonar::ConfigurationError.new('You need to set your token, see SendSonar Readme'))
+    end
+
+    def publishable_key
+      @publishable_key || raise(SendSonar::ConfigurationError.new('You need to set your publishable key, see SendSonar Readme'))
     end
 
     def env=(env_sym)

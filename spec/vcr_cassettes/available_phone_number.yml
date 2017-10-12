@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.sendsonar.com/api/v1/phone_numbers/available
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin15.5.0 x86_64) ruby/2.3.1p112
+      Client:
+      - rubygem 1.1.0
+      X-Publishable-Key:
+      - f77a884d-4c52-4369-90c2-22a3d5607c24
+      Host:
+      - sandbox.sendsonar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Thu, 05 Oct 2017 21:06:00 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Etag:
+      - W/"c595b07a0c70184b0b0696babbd0aa85"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - e905b3f2-8a4e-4770-b562-97496c4fbe4d
+      X-Runtime:
+      - '0.042641'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Content-Length:
+      - '33'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"available_number":"7573780424"}'
+    http_version: 
+  recorded_at: Thu, 05 Oct 2017 21:06:01 GMT
+recorded_with: VCR 3.0.3

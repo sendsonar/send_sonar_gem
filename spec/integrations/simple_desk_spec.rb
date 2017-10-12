@@ -35,9 +35,9 @@ describe 'SendSonar' do
     context 'with an invalid token' do
       let(:token) { 'FAKE_TOKEN' }
 
-      it 'raises a BadToken error' do
+      it 'raises a BadToken exception' do
         VCR.use_cassette("#{cassette_group}_bad_token") do
-          expect { response }.to raise_error(SendSonar::BadToken, 'SendSonar::BadToken')
+          expect { response }.to raise_exception(SendSonar::BadToken, 'SendSonar::BadToken')
         end
       end
     end
@@ -45,9 +45,9 @@ describe 'SendSonar' do
     context 'with an inactive subscription' do
       let(:token) { 'tKux9Vwkt0UuTVJqGUO80MGJHCAeebpe' }
 
-      it 'raises a BadToken error' do
+      it 'raises a NoActiveSubscription exception' do
         VCR.use_cassette("#{cassette_group}_no_subscription") do
-          expect { response }.to raise_error(SendSonar::NoActiveSubscription, 'SendSonar::NoActiveSubscription')
+          expect { response }.to raise_exception(SendSonar::NoActiveSubscription, 'SendSonar::NoActiveSubscription')
         end
       end
     end
@@ -55,9 +55,9 @@ describe 'SendSonar' do
     context 'with disabled API' do
       let(:token) { 'ts9mOO_O5Dc7TOBaEAQym-00RGEl3Uel' }
 
-      it 'raises a BadToken error' do
+      it 'raises an ApiDisabledForCompany error' do
         VCR.use_cassette("#{cassette_group}_api_disabled") do
-          expect { response }.to raise_error(SendSonar::ApiDisabledForCompany, 'SendSonar::ApiDisabledForCompany')
+          expect { response }.to raise_exception(SendSonar::ApiDisabledForCompany, 'SendSonar::ApiDisabledForCompany')
         end
       end
     end
@@ -90,10 +90,10 @@ describe 'SendSonar' do
         { :phone_numbah => "5555555558" }
       end
 
-      it 'raises a BadRequest error with hint' do
+      it 'raises a BadRequest exception with hint' do
         VCR.use_cassette("add_customer_bad_params") do
-          expect { response }.to raise_error(SendSonar::BadRequest,
-            '400 Bad Request: {"error":"phone_number is missing"}')
+          expect { response }.to raise_exception(SendSonar::BadRequest,
+            'SendSonar::BadRequest: 400 Bad Request: {"error":"phone_number is missing"}')
         end
       end
     end
@@ -101,10 +101,10 @@ describe 'SendSonar' do
     context 'with an invalid phone number' do
       let(:token) { 'tKux9Vwkt0UuTVJqGUO80MGJHCAeebpe' }
 
-      it 'raises a Invalid Phone Number error' do
+      it 'raises a BadRequest exception with Invalid Phone Number error message' do
         VCR.use_cassette("#{cassette_group}_invalid_phone_number") do
-          expect { response }.to raise_error(SendSonar::BadRequest,
-            '400 Bad Request: {"error":"Invalid Phone Number"}')
+          expect { response }.to raise_exception(SendSonar::BadRequest,
+            'SendSonar::BadRequest: 400 Bad Request: {"error":"Invalid Phone Number"}')
         end
       end
     end
@@ -129,6 +129,50 @@ describe 'SendSonar' do
     end
   end
 
+  describe '.add_update_customer' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    let(:response) { SendSonar.add_update_customer(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:phone_number) { '+13105555555' }
+    let(:email) { 'five@example.com' }
+    let(:first_name) { 'Five' }
+    let(:last_name) { 'Example' }
+    let(:properties) { { 'great_customer' => 'true' } }
+    let(:params) do
+      { :phone_number => phone_number,
+        :email => email,
+        :first_name => first_name,
+        :last_name => last_name,
+        :properties => properties }
+    end
+
+    context 'with proper param, active subscription' do
+      it 'returns a customer' do
+        VCR.use_cassette('add_update_customer') do
+          expect(response).to be_a(SendSonar::Customer)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('add_update_customer') do
+          customer = response
+          expect(customer.phone_number).to eq(phone_number)
+          expect(customer.email).to eq(email)
+          expect(customer.first_name).to eq(first_name)
+          expect(customer.last_name).to eq(last_name)
+          expect(customer.properties).to eq(properties)
+        end
+      end
+    end
+
+  end
+
   describe '.message_customer' do
     before do
       SendSonar.configure do |config|
@@ -151,10 +195,10 @@ describe 'SendSonar' do
         { :toz => "5555555558" }
       end
 
-      it 'raises a BadRequest error with hint' do
+      it 'raises a BadRequest exception with hint' do
         VCR.use_cassette("message_customer_bad_params") do
-          expect { response }.to raise_error(SendSonar::BadRequest,
-            '400 Bad Request: {"error":"text is missing, to is missing"}')
+          expect { response }.to raise_exception(SendSonar::BadRequest,
+            'SendSonar::BadRequest: 400 Bad Request: {"error":"text is missing, to is missing"}')
         end
       end
     end
@@ -162,10 +206,10 @@ describe 'SendSonar' do
     context 'with an invalid phone number' do
       let(:token) { 'tKux9Vwkt0UuTVJqGUO80MGJHCAeebpe' }
 
-      it 'raises a Invalid Phone Number error' do
+      it 'raises a BadRequest exception with Invalid Phone Number error message' do
         VCR.use_cassette("#{cassette_group}_invalid_phone_number") do
-          expect { response }.to raise_error(SendSonar::BadRequest,
-            '400 Bad Request: {"error":"Invalid Phone Number"}')
+          expect { response }.to raise_exception(SendSonar::BadRequest,
+            'SendSonar::BadRequest: 400 Bad Request: {"error":"Invalid Phone Number"}')
         end
       end
     end
@@ -187,4 +231,227 @@ describe 'SendSonar' do
       end
     end
   end
+
+  shared_examples "an error receiving gem" do |context|
+    context 'with an invalid token' do
+      let(:token) { 'FAKE_TOKEN' }
+
+      it 'raises a BadToken exception' do
+        VCR.use_cassette("#{cassette_group}_bad_token") do
+          expect { response }.to raise_exception(SendSonar::TokenOrPublishableKeyNotFound, 'SendSonar::TokenOrPublishableKeyNotFound')
+        end
+      end
+    end
+  end
+
+  describe '.send_campaign' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    let(:cassette_group) { "send_campaign" }
+    let(:response) { SendSonar.send_campaign(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:recepient_number) { "+13105551111" }
+    let(:params) do
+      { :to => recepient_number, :campaign_id => "test_d0Bu23" }
+    end
+
+    context 'with proper params, active subscription' do
+      it 'returns a campaign sent receipt' do
+        VCR.use_cassette('send_campaign') do
+          expect(response).to be_a(SendSonar::Response)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('send_campaign') do
+          campaign_sent = response
+          expect(campaign_sent.to).to eq(recepient_number)
+          expect(campaign_sent.text).to eq("sent")
+          expect(campaign_sent.status).to eq("queued")
+        end
+      end
+    end
+
+    it_behaves_like "an error receiving gem"
+  end
+
+  describe '.close_customer' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    let(:cassette_group) { "close_customer" }
+    let(:response) { SendSonar.close_customer(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:params) do
+      { :phone_number => "+13105551111" }
+    end
+
+    context 'with proper param, active subscription' do
+      it 'returns a customer closed status' do
+        VCR.use_cassette('close_customer') do
+          expect(response).to be_a(SendSonar::Response)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('close_customer') do
+          customer_closed = response
+          expect(customer_closed.success).to eq(true)
+        end
+      end
+    end
+
+    it_behaves_like "an error receiving gem"
+  end
+
+  describe '.delete_customer_property' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    let(:cassette_group) { "delete_customer_property" }
+    let(:response) { SendSonar.delete_customer_property(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:phone_number) { '+13105551111' }
+    let(:email) { 'one@example.com' }
+
+    context 'using phone_number param' do
+      let(:property_name) { 'foo' }
+      let(:params) do
+        { :phone_number => phone_number, :property_name => property_name }
+      end
+      it 'returns a customer property deleted' do
+        VCR.use_cassette('delete_customer_property_with_phone_number') do
+          expect(response).to be_a(SendSonar::Response)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('delete_customer_property_with_phone_number') do
+          customer_property_deleted = response
+          expect(customer_property_deleted.phone_number).to eq(phone_number)
+          expect(customer_property_deleted.email).to eq(email)
+          expect(customer_property_deleted.property_name).to eq(property_name)
+          expect(customer_property_deleted.phone_number).to eq(phone_number)
+          expect(customer_property_deleted.deleted).to eq(true)
+        end
+      end
+
+      it_behaves_like "an error receiving gem"
+    end
+
+    context 'using email param' do
+      let(:property_name) { 'bar' }
+      let(:params) do
+        { :email => email, :property_name => property_name }
+      end
+      it 'returns a customer property deleted' do
+        VCR.use_cassette('delete_customer_property_with_email') do
+          expect(response).to be_a(SendSonar::Response)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('delete_customer_property_with_email') do
+          customer_property_deleted = response
+          expect(customer_property_deleted.phone_number).to eq(phone_number)
+          expect(customer_property_deleted.email).to eq(email)
+          expect(customer_property_deleted.property_name).to eq(property_name)
+          expect(customer_property_deleted.phone_number).to eq(phone_number)
+          expect(customer_property_deleted.deleted).to eq(true)
+        end
+      end
+    end
+  end
+
+  describe '.get_customer' do
+    before do
+      SendSonar.configure do |config|
+        config.token = token
+        config.env = :sandbox
+      end
+    end
+
+    let(:cassette_group) { "get_customer" }
+    let(:response) { SendSonar.get_customer(params) }
+    let(:token) { '99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL' }
+    let(:phone_number) { '+13105551111' }
+    let(:params) do
+      { :phone_number => phone_number }
+    end
+
+    context 'with proper param, active subscription' do
+      it 'returns a customer' do
+        VCR.use_cassette('get_customer') do
+          expect(response).to be_a(SendSonar::Customer)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('get_customer') do
+          customer = response
+          expect(customer.phone_number).to eq(phone_number)
+          expect(customer).to respond_to(:first_name)
+          expect(customer).to respond_to(:last_name)
+          expect(customer).to respond_to(:email)
+          expect(customer).to respond_to(:assigned_phone_number)
+          expect(customer).to respond_to(:subscribed)
+          expect(customer).to respond_to(:unsubscribed_at)
+          expect(customer).to respond_to(:properties)
+        end
+      end
+    end
+
+    it_behaves_like "an error receiving gem"
+  end
+
+  describe '.available_phone_number' do
+    before do
+      SendSonar.configure do |config|
+        config.publishable_key = publishable_key
+        config.env = :sandbox
+      end
+    end
+
+    let(:response) { SendSonar.available_phone_number }
+    let(:publishable_key) { 'f77a884d-4c52-4369-90c2-22a3d5607c24' }
+
+    context 'with proper param, active subscription' do
+      it 'returns an available number' do
+        VCR.use_cassette('available_phone_number') do
+          expect(response).to be_a(SendSonar::Response)
+        end
+      end
+
+      it 'includes the expected attributes' do
+        VCR.use_cassette('available_phone_number') do
+          available_number = response
+          expect(available_number).to respond_to(:available_number)
+        end
+      end
+    end
+
+    context 'with an invalid publishable key' do
+      let(:publishable_key) { 'BAD_PUBLISHABLE_KEY' }
+
+      it 'raises a TokenOrPublishableKeyNotFound exception' do
+        VCR.use_cassette("available_phone_number_bad_publishable_key") do
+          expect { response }.to raise_exception(SendSonar::TokenOrPublishableKeyNotFound, 'SendSonar::TokenOrPublishableKeyNotFound')
+        end
+      end
+    end
+  end
+
 end

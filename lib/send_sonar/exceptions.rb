@@ -24,7 +24,7 @@ module SendSonar
     end
 
     def inspect
-      @original_exception.inspect
+      "#{self.class.name}: #{@original_exception.to_s}: #{@original_exception.http_body}"
     end
 
     def to_s
@@ -39,9 +39,11 @@ module SendSonar
   class UnknownRequestError < RequestException; end
   class RequestTimeout < RequestException; end
   class ConnectionRefused < RequestException; end
+  class TokenOrPublishableKeyNotFound < RequestException; end
 
   class Customer < OpenStruct; end
   class Message < OpenStruct; end
+  class Response < OpenStruct; end
 
   module Exceptions
     EXCEPTIONS_MAP = {
@@ -49,7 +51,8 @@ module SendSonar
       "No Active Subscription" => NoActiveSubscription,
       "Api Disabled For Company" => ApiDisabledForCompany,
       "Request Timed Out" => RequestTimeout,
-      "Invalid Phone Number" => InvalidPhoneNumber
+      "Invalid Phone Number" => InvalidPhoneNumber,
+      "Token or publishable_key not found" => TokenOrPublishableKeyNotFound
     }
   end
 end

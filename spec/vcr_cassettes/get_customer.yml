@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.sendsonar.com/api/v1/customers?phone_number=%2B13105551111&token=99siwE4WRn6bg_B_ktm6h2w6Kez0JYLL
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin15.5.0 x86_64) ruby/2.3.1p112
+      Host:
+      - sandbox.sendsonar.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Thu, 05 Oct 2017 00:28:15 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Etag:
+      - W/"71a571a694ae6de84e1a624b1c0c16a5"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - c3251968-445b-4790-a387-e68afd67a5a6
+      X-Runtime:
+      - '0.996012'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Content-Length:
+      - '260'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"phone_number":"+13105551111","first_name":"One","last_name":"Example","email":"one@example.com","assigned_phone_number":"+17573780424","subscribed":true,"unsubscribed_at":null,"properties":{"great_customer":"true","first_customer":"true"},"external_id":null}'
+    http_version: 
+  recorded_at: Thu, 05 Oct 2017 00:28:16 GMT
+recorded_with: VCR 3.0.3
