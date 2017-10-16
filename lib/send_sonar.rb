@@ -13,14 +13,14 @@ module SendSonar
     yield @config ||= Configuration.new
   end
 
-  def add_customer(params)
+  def add_customer params
     resp = Client.post url_for(:customers), params, headers
     Customer.new(JSON.parse(resp))
   end
 
   alias_method :add_update_customer, :add_customer
 
-  def message_customer(params)
+  def message_customer params
     resp = Client.post url_for(:messages), params, headers
     Message.new(JSON.parse(resp))
   end
