@@ -1,3 +1,7 @@
+v 2.0.1
+-------
+* Added minimum required Ruby version.
+
 v 2.0.0
 -------
 * Ruby 2.0.0 or greater is now required
