@@ -118,8 +118,8 @@ SendSonar.send_campaign(
 
 The response is a `SendSonar::Response` object with accessors for the parameters listed in the [documentation](http://docs.sendsonar.com/docs/send-campaign).
 
-### [Delete Customer Property](http://docs.sendsonar.com/docs/delete-customer-pro---perties)
-
+### [Delete Customer Property](http://docs.sendsonar.com/docs/delete-customer-properties)
+---
 [Visit Documentation](http://docs.sendsonar.com/docs/delete-customer-properties)
 
 ```ruby
